@@ -131,6 +131,17 @@
   .consult{width:100%;height:48px;border-radius:999px;background:var(--ink);color:#fff;font-size:16px;font-weight:600;transition:transform .15s var(--ease)}
   .consult:active{transform:scale(.98)}
 
+  /* ===== 联系方式 ===== */
+  .contact-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 4px;border-bottom:1px solid var(--line)}
+  .contact-k{font-size:12px;color:var(--muted);letter-spacing:.15em}
+  .contact-v{font-size:19px;font-weight:700;margin-top:4px;letter-spacing:.04em}
+  .contact-btn{flex:0 0 auto;height:40px;padding:0 18px;border-radius:999px;background:var(--lavbg);color:var(--purple);font-size:14px;font-weight:600;text-decoration:none;display:inline-flex;align-items:center}
+  .contact-btn.call{background:var(--ink);color:#fff}
+  .contact-tip{font-size:13px;color:var(--muted);line-height:1.7;margin-top:16px}
+  .contact-name{font-size:16px;font-weight:700;color:var(--ink)}
+  .mini-copy{height:24px;padding:0 10px;border-radius:999px;background:var(--lavbg);color:var(--purple);font-size:12px;font-weight:600;margin-left:6px;vertical-align:2px}
+  footer .tel{color:var(--purple);font-weight:700;text-decoration:none}
+
   /* ===== 页脚 ===== */
   footer{max-width:1080px;margin:0 auto;padding:32px 16px 48px;border-top:1px solid var(--line);text-align:center}
   footer h3{font-family:Georgia,"Songti SC","STSong","SimSun",serif;font-size:18px;letter-spacing:.1em;margin-bottom:8px}
@@ -261,7 +272,8 @@
 
 <footer id="contact">
   <h3>联系我们</h3>
-  <p>微信 / 电话待添加<br>看到喜欢的行程，欢迎来问团期与余位。</p>
+  <p class="contact-name">杨女士</p>
+  <p>微信号 <b>z13320488173</b><button class="mini-copy" data-copy="z13320488173">复制</button><br>电话 <a class="tel" href="tel:13320488173">13320488173</a><br>看到喜欢的行程，欢迎来问团期与余位。</p>
   <p class="copy">© 2026 松兰旅游 · songlan.duckdns.org</p>
 </footer>
 
@@ -430,6 +442,32 @@ function openOptionSheet(title, opts, key){
 $("#daysBtn").addEventListener("click", () => openOptionSheet("选择天数", DAYS_OPTS, "days"));
 $("#priceBtn").addEventListener("click", () => openOptionSheet("选择价格", PRICE_OPTS, "price"));
 
+/* 联系杨女士：复制微信 / 拨打电话 */
+function copyText(t, btn){
+  const done = () => { const o = btn.textContent; btn.textContent = "已复制 ✓"; setTimeout(() => { btn.textContent = o; }, 2000); };
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(t).then(done).catch(() => fallbackCopy(t, done));
+  } else fallbackCopy(t, done);
+}
+function fallbackCopy(t, done){
+  const ta = document.createElement("textarea");
+  ta.value = t; ta.style.position = "fixed"; ta.style.opacity = "0";
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand("copy"); done(); } catch(e){}
+  document.body.removeChild(ta);
+}
+function openContactSheet(){
+  $("#sheetTitle").textContent = "联系杨女士";
+  $("#sheetBody").innerHTML =
+    '<div class="contact-row"><div><div class="contact-k">微信</div><div class="contact-v">z13320488173</div></div>' +
+    '<button class="contact-btn" id="copyWx">复制微信号</button></div>' +
+    '<div class="contact-row"><div><div class="contact-k">电话</div><div class="contact-v">13320488173</div></div>' +
+    '<a class="contact-btn call" href="tel:13320488173">拨打电话</a></div>' +
+    '<p class="contact-tip">加微信请备注想去的地方，方便杨女士直接发你团期和余位。</p>';
+  $("#copyWx").addEventListener("click", e => copyText("z13320488173", e.target));
+  openSheet();
+}
+
 /* 搜索 */
 const searchbar = $("#searchbar"), searchInput = $("#searchInput");
 $("#searchToggle").addEventListener("click", () => {
@@ -480,9 +518,7 @@ function renderDetail(id){
     '<button class="consult" id="consultBtn">咨询行程</button></div>';
   $("#backBtn").addEventListener("click", () => { location.hash = "#/"; });
   $("#detailPoster").addEventListener("click", () => openLightbox(p));
-  $("#consultBtn").addEventListener("click", () => {
-    document.getElementById("contact").scrollIntoView({behavior:"smooth"});
-  });
+  $("#consultBtn").addEventListener("click", openContactSheet);
 }
 
 /* 路由 */
@@ -525,6 +561,8 @@ function onScroll(){
     heroCopy.style.opacity = String(Math.max(1 - p * 1.15, 0));
   }
 }
+
+document.querySelectorAll("[data-copy]").forEach(b => b.addEventListener("click", () => copyText(b.dataset.copy, b)));
 
 syncFilterUI();
 route();

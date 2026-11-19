@@ -62,8 +62,11 @@
   .menu.open .menu-links a:nth-child(4){transition-delay:.26s}
   .menu-links a span{font-size:12px;color:var(--muted);letter-spacing:.2em;margin-left:10px;font-family:"PingFang SC",sans-serif}
 
-  /* ===== Hero 横幅：只占 1/4 屏 ===== */
-  .hero{position:relative;height:25vh;min-height:168px;max-height:300px;margin:0 -16px;overflow:hidden;background:var(--dark)}
+  /* ===== Hero 横幅：开场满屏，0.55s 后 1.15s 收起到 1/4 屏（纯 CSS，JS 失败也不卡住） ===== */
+  .hero{position:relative;height:25vh;min-height:168px;max-height:300px;margin:0 -16px;overflow:hidden;background:var(--dark);animation:heroIntro 1.15s var(--ease) .55s both}
+  @keyframes heroIntro{from{height:calc(100vh - 56px);height:calc(100svh - 56px);max-height:calc(100vh - 56px);max-height:calc(100svh - 56px)}to{height:25vh}}
+  .hero-media{width:100%;height:100%;animation:heroZoom 1.7s var(--ease) both}
+  @keyframes heroZoom{from{transform:scale(1.12)}to{transform:scale(1)}}
   .hero img{width:100%;height:100%;object-fit:cover;animation:kenburns 32s ease-in-out infinite alternate;will-change:transform}
   @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.06)}}
   .hero-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,8,35,.12) 0%,rgba(20,8,35,.02) 40%,rgba(20,8,35,.55) 78%,rgba(20,8,35,.72) 100%)}
@@ -216,7 +219,6 @@
     .card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(50,21,76,.10)}
     .card:hover .thumb img{transform:scale(1.05)}
     .hero{max-height:320px}
-    .hero img{object-position:center 68%} /* 桌面端取景下移：露出湖面与倒影，手机端不受影响 */
     .sheet{max-width:560px;left:50%;right:auto;transform:translate(-50%,105%);border-radius:18px 18px 0 0}
     .sheet.open{transform:translate(-50%,0)}
     .opt-grid{grid-template-columns:repeat(6,1fr)}
@@ -227,6 +229,7 @@
     .hero-eyebrow,.hero-sub,.hero-rule,.hero-loc{animation:none}
     .reveal{transition:none;opacity:1;transform:none}
     .thumb{animation:none}
+    .hero,.hero-media{animation:none}
     .detail,.lightbox img{animation:none}
     .menu-links a{transition:none;opacity:1;transform:none}
     .sheet.open .opt-row,.sheet.open .opt{animation:none}
@@ -277,7 +280,7 @@
 <main>
   <section id="view-list">
     <div class="hero" id="hero">
-      <img src="hero.jpg" alt="莫雷恩湖实拍风景">
+      <div class="hero-media"><img src="hero.jpg" alt="莫雷恩湖实拍风景"></div>
       <div class="hero-shade"></div>
       <div class="hero-loc"><i></i>莫雷恩湖 · 加拿大班夫</div>
       <div class="hero-copy" id="heroCopy">
@@ -617,6 +620,12 @@ $("#toTop").addEventListener("click", () => window.scrollTo({top:0, behavior:"sm
 
 syncFilterUI();
 route();
+
+/* 开场动效期间锁滚动（1.8s 后释放；减动效或直达详情页时不锁） */
+if (window.matchMedia && !window.matchMedia("(prefers-reduced-motion: reduce)").matches && !location.hash.match(/^#\/p\//)){
+  document.body.style.overflow = "hidden";
+  setTimeout(() => { document.body.style.overflow = ""; }, 1800);
+}
 </script>
 </body>
 </html>

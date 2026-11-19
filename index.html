@@ -142,6 +142,15 @@
   .mini-copy{height:24px;padding:0 10px;border-radius:999px;background:var(--lavbg);color:var(--purple);font-size:12px;font-weight:600;margin-left:6px;vertical-align:2px}
   footer .tel{color:var(--purple);font-weight:700;text-decoration:none}
 
+  /* ===== 详细行程 PDF ===== */
+  .pdf-sec{margin:4px 0 20px;border-top:1px solid var(--line);padding-top:16px}
+  .pdf-title{font-size:12px;letter-spacing:.2em;color:var(--muted);margin-bottom:10px}
+  .pdf-link{display:flex;align-items:center;gap:10px;padding:13px 14px;border:1px solid var(--line);border-radius:12px;text-decoration:none;color:var(--ink);margin-bottom:8px;transition:border-color .2s,background .2s}
+  .pdf-link:active{background:var(--lavbg)}
+  .pdf-badge{flex:0 0 auto;font-size:10px;font-weight:700;letter-spacing:.08em;color:#fff;background:var(--purple);border-radius:6px;padding:4px 7px}
+  .pdf-label{flex:1;font-size:14px;font-weight:600}
+  .pdf-go{flex:0 0 auto;font-size:12px;color:var(--muted)}
+
   /* ===== 页脚 ===== */
   footer{max-width:1080px;margin:0 auto;padding:32px 16px 48px;border-top:1px solid var(--line);text-align:center}
   footer h3{font-family:Georgia,"Songti SC","STSong","SimSun",serif;font-size:18px;letter-spacing:.1em;margin-bottom:8px}
@@ -292,13 +301,13 @@
 <script>
 /* ============ 海报数据：一行一张，图片放 posters/ 目录 ============ */
 const POSTERS = [
-  {id:"xinjiang", title:"雪域天山", label:"新疆", scope:"国内", regions:["新疆"], days:8, daysLabel:"8日", from:"版纳出发", price:4980, priceLabel:"¥4980/人", dates:"11月24日 / 12月2日发班", img:"posters/xinjiang-tianshan.jpg", featured:true, desc:"四飞8日高端品质游，伊宁进、乌鲁木齐出，疆内双点进出减少1000公里舟车劳顿。六星街、那拉提林海雪原、天鹅泉、赛里木湖、独山子大峡谷、库木塔格沙漠、吐鲁番、吐峪沟、高昌宴舞、坎儿井、南山滑雪场、天山天池。全程四钻品质住宿，赠送《高昌宴舞》沉浸式盛宴与雪圈戏雪，2+1舒适旅游大巴，一客一清防寒服。"},
+  {id:"xinjiang", title:"雪域天山", label:"新疆", scope:"国内", regions:["新疆"], days:8, daysLabel:"8日", from:"版纳出发", price:4980, priceLabel:"¥4980/人", dates:"11月24日 / 12月2日发班", img:"posters/xinjiang-tianshan.jpg", featured:true, pdfs:[{label:"详细行程 · 8日", file:"itineraries/xinjiang-8day.pdf"}], desc:"四飞8日高端品质游，伊宁进、乌鲁木齐出，疆内双点进出减少1000公里舟车劳顿。六星街、那拉提林海雪原、天鹅泉、赛里木湖、独山子大峡谷、库木塔格沙漠、吐鲁番、吐峪沟、高昌宴舞、坎儿井、南山滑雪场、天山天池。全程四钻品质住宿，赠送《高昌宴舞》沉浸式盛宴与雪圈戏雪，2+1舒适旅游大巴，一客一清防寒服。"},
   {id:"nhatrang", title:"靠谱芽庄", label:"越南·芽庄", scope:"国外", regions:["越南"], days:6, daysLabel:"5晚6天", from:"云南出发", price:2980, priceLabel:"¥2980/人", dates:"12月12日 / 12月26日", img:"posters/vietnam-nhatrang.jpg", desc:"游芽庄，必须靠谱。翡翠湾、龙山寺、占婆塔、五指岩、大教堂；越南三宝、海鲜BBQ、酸汤鸡、海鲜小火锅；全程芽庄网评五钻泳池酒店，0自费0车销，7大承诺做不到立即赔偿。不含签证杂费680元/人、过关小费、司导小费20元/人/天。"},
-  {id:"xinma", title:"臻享新马", label:"新马", scope:"国外", regions:["新加坡","马来西亚"], days:6, daysLabel:"双飞5晚6天", from:"昆明出发", price:3980, priceLabel:"¥3980/人", dates:"11月21日", img:"posters/singapore-malaysia.jpg", desc:"新加坡+马来西亚+波德申。东航优质白班机直飞吉隆坡，可配联运、赠送昆明住宿；吉隆坡升级2晚国际五星温德姆。鱼尾狮公园、花芭山、双峰塔、马六甲海峡、荷兰红屋、葡萄牙古城门；海南鸡饭、奶油虾、面包鸡、肉骨茶。0自费。不含杂费980元+导游小费120元+马来西亚酒店税17马币/晚/间。"},
-  {id:"bali", title:"巴厘岛·天屿五星梦", label:"巴厘岛", scope:"国外", regions:["印度尼西亚"], days:7, daysLabel:"6晚7天 / 6晚8天", from:"昆明出发", price:4980, priceLabel:"¥4980/人", dates:"12月9日（6晚7天）/ 12月15日（6晚8天）", img:"posters/bali.jpg", desc:"东航优质白班机，联程直转、行李直挂。佩妮达西线出海1日游、蓝梦岛出海1日游；精灵坠崖、破碎沙滩、天神浴池、恶魔的眼泪、梦幻沙滩；3晚网评四钻酒店+1晚蓝梦岛酒店+2晚温德姆；悬崖公路、PANDAWA海滩下午茶、金巴兰海滩。纯玩0购物。不含杂费680元/人及落地签35美金/人。"},
-  {id:"sabah", title:"沙巴奇遇记", label:"沙巴", scope:"国外", regions:["马来西亚"], days:6, daysLabel:"4晚6天", from:"详询客服", price:5980, priceLabel:"¥5980/人", dates:"10月15/17/20/22/24/27/29/30日、11月3/5/7/10/12/14/17/19/21/24/26/28日", img:"posters/sabah.jpg", desc:"2-8人精品小包团，纯玩0购物0自费。美人鱼岛出海、萤火虫、红树林长鼻猴、丹绒亚路日落；全程四钻酒店，赠送128元出游大礼包。可定制马穆迪+马努干双岛出海一日游（+800元/人）、升级佳蓝文莱度假村（+300元/人/晚）。不含杂费680+导游小费120+马段酒店税10马币/晚/间。"},
-  {id:"semporna", title:"恋上仙本那", label:"仙本那", scope:"国外", regions:["马来西亚"], days:6, daysLabel:"5晚6日", from:"详询客服", price:6980, priceLabel:"¥6980/人", dates:"11月7/14/21/28日、12月5/12/19/26日", img:"posters/semporna.jpg", desc:"优质白班机直飞吉隆坡，可配联运（含托运行李）。2晚吉隆坡+3晚镇上精品酒店；出海跳岛：马步岛、卡帕莱、马达京、汀巴汀巴、邦邦岛；安排吉隆坡市区游。0自费0购物。不含杂费680+马段酒店税17马币/晚/间，上岛费自理。"},
-  {id:"kapalai", title:"卡帕莱奇遇记", label:"仙本那", scope:"国外", regions:["马来西亚"], days:6, daysLabel:"5晚6日", from:"详询客服", price:8580, priceLabel:"¥8580/人", dates:"11月7/14/21/28日、12月5/12/19/26日", img:"posters/kapalai.jpg", desc:"优质白班机直飞吉隆坡，可配联运（含托运行李）。1晚卡帕莱水屋+2晚吉隆坡+2晚镇上精品酒店；卡帕莱自由浮潜（马布岛、马达京2选1）；安排吉隆坡市区游。0自费0购物。不含杂费680+马段酒店税17马币/晚/间，上岛费自理。"}
+  {id:"xinma", title:"臻享新马", label:"新马", scope:"国外", regions:["新加坡","马来西亚"], days:6, daysLabel:"双飞5晚6天", from:"昆明出发", price:3980, priceLabel:"¥3980/人", dates:"11月21日", img:"posters/singapore-malaysia.jpg", pdfs:[{label:"详细行程 · 5晚6天（东航直飞）", file:"itineraries/xinma-5n6d.pdf"},{label:"详细行程 · 5晚7天", file:"itineraries/xinma-5n7d.pdf"}], desc:"新加坡+马来西亚+波德申。东航优质白班机直飞吉隆坡，可配联运、赠送昆明住宿；吉隆坡升级2晚国际五星温德姆。鱼尾狮公园、花芭山、双峰塔、马六甲海峡、荷兰红屋、葡萄牙古城门；海南鸡饭、奶油虾、面包鸡、肉骨茶。0自费。不含杂费980元+导游小费120元+马来西亚酒店税17马币/晚/间。"},
+  {id:"bali", title:"巴厘岛·天屿五星梦", label:"巴厘岛", scope:"国外", regions:["印度尼西亚"], days:7, daysLabel:"6晚7天 / 6晚8天", from:"昆明出发", price:4980, priceLabel:"¥4980/人", dates:"12月9日（6晚7天）/ 12月15日（6晚8天）", img:"posters/bali.jpg", pdfs:[{label:"详细行程 · 6晚7天（12月9日出发）", file:"itineraries/bali-6n7d.pdf"},{label:"详细行程 · 6晚8天（12月15日出发）", file:"itineraries/bali-6n8d.pdf"}], desc:"东航优质白班机，联程直转、行李直挂。佩妮达西线出海1日游、蓝梦岛出海1日游；精灵坠崖、破碎沙滩、天神浴池、恶魔的眼泪、梦幻沙滩；3晚网评四钻酒店+1晚蓝梦岛酒店+2晚温德姆；悬崖公路、PANDAWA海滩下午茶、金巴兰海滩。纯玩0购物。不含杂费680元/人及落地签35美金/人。"},
+  {id:"sabah", title:"沙巴奇遇记", label:"沙巴", scope:"国外", regions:["马来西亚"], days:6, daysLabel:"4晚6天", from:"详询客服", price:5980, priceLabel:"¥5980/人", dates:"10月15/17/20/22/24/27/29/30日、11月3/5/7/10/12/14/17/19/21/24/26/28日", img:"posters/sabah.jpg", pdfs:[{label:"详细行程 · 4晚6天", file:"itineraries/sabah-4n6d.pdf"}], desc:"2-8人精品小包团，纯玩0购物0自费。美人鱼岛出海、萤火虫、红树林长鼻猴、丹绒亚路日落；全程四钻酒店，赠送128元出游大礼包。可定制马穆迪+马努干双岛出海一日游（+800元/人）、升级佳蓝文莱度假村（+300元/人/晚）。不含杂费680+导游小费120+马段酒店税10马币/晚/间。"},
+  {id:"semporna", title:"恋上仙本那", label:"仙本那", scope:"国外", regions:["马来西亚"], days:6, daysLabel:"5晚6日", from:"详询客服", price:6980, priceLabel:"¥6980/人", dates:"11月7/14/21/28日、12月5/12/19/26日", img:"posters/semporna.jpg", pdfs:[{label:"详细行程 · 5晚6日", file:"itineraries/semporna-5n6d.pdf"}], desc:"优质白班机直飞吉隆坡，可配联运（含托运行李）。2晚吉隆坡+3晚镇上精品酒店；出海跳岛：马步岛、卡帕莱、马达京、汀巴汀巴、邦邦岛；安排吉隆坡市区游。0自费0购物。不含杂费680+马段酒店税17马币/晚/间，上岛费自理。"},
+  {id:"kapalai", title:"卡帕莱奇遇记", label:"仙本那", scope:"国外", regions:["马来西亚"], days:6, daysLabel:"5晚6日", from:"详询客服", price:8580, priceLabel:"¥8580/人", dates:"11月7/14/21/28日、12月5/12/19/26日", img:"posters/kapalai.jpg", pdfs:[{label:"详细行程 · 5晚6日（含卡帕莱水屋）", file:"itineraries/kapalai-5n6d.pdf"}], desc:"优质白班机直飞吉隆坡，可配联运（含托运行李）。1晚卡帕莱水屋+2晚吉隆坡+2晚镇上精品酒店；卡帕莱自由浮潜（马布岛、马达京2选1）；安排吉隆坡市区游。0自费0购物。不含杂费680+马段酒店税17马币/晚/间，上岛费自理。"}
 ];
 
 /* ============ 地区分类：34 个省级 + 24 个热门国家 ============ */
@@ -503,6 +512,9 @@ $("#menuContact").addEventListener("click", () => {
 function renderDetail(id){
   const p = POSTERS.find(x => x.id === id);
   if (!p){ location.hash = "#/"; return; }
+  const pdfHTML = p.pdfs ? '<div class="pdf-sec"><div class="pdf-title">详细行程</div>' + p.pdfs.map(f =>
+    '<a class="pdf-link" href="' + f.file + '" target="_blank" rel="noopener"><span class="pdf-badge">PDF</span><span class="pdf-label">' + f.label + '</span><span class="pdf-go">点击查看 ›</span></a>'
+  ).join("") + '</div>' : '';
   detailView.innerHTML =
     '<div class="detail"><button class="back" id="backBtn">← 全部海报</button>' +
     '<div class="poster-full" id="detailPoster">' + (p.img ? '<img src="' + p.img + '" alt="' + p.title + '海报">' : "") + '</div>' +
@@ -514,7 +526,7 @@ function renderDetail(id){
     '<div class="info-row"><span class="k">出发地</span><span class="v">' + p.from + '</span></div>' +
     '<div class="info-row"><span class="k">价格</span><span class="v">' + p.priceLabel + '</span></div>' +
     '<div class="info-row"><span class="k">团期</span><span class="v">' + p.dates + '</span></div>' +
-    '</div><p class="desc">' + p.desc + '</p>' +
+    '</div><p class="desc">' + p.desc + '</p>' + pdfHTML +
     '<button class="consult" id="consultBtn">咨询行程</button></div>';
   $("#backBtn").addEventListener("click", () => { location.hash = "#/"; });
   $("#detailPoster").addEventListener("click", () => openLightbox(p));

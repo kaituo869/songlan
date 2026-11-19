@@ -53,11 +53,13 @@
   /* 主推海报：全幅一张图 */
   .featured{margin:20px 0 8px}
   .poster{position:relative;border-radius:10px;overflow:hidden;background:#f0efec}
-  .poster.ratio34{aspect-ratio:3/4}
-  .poster img{width:100%;height:100%;object-fit:cover;display:block}
+  .poster.ratio916{aspect-ratio:9/16}
+  .poster img{width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+  .poster.natural img{height:auto}
   .poster-ph{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--purple)}
   .poster-ph .ph-char{font-family:Georgia,"Songti SC","STSong","SimSun",serif;font-size:52px;letter-spacing:.1em}
   .poster-ph .ph-tag{font-size:11px;letter-spacing:.3em;opacity:.85;border:1px solid rgba(91,42,134,.45);border-radius:999px;padding:2px 12px}
+  .price{font-size:17px;font-weight:700;color:var(--purple);margin-top:4px}
   .feat-title{padding:12px 2px 4px}
   .region{font-size:12px;letter-spacing:.24em;color:var(--purple);font-weight:600}
   .title{font-family:Georgia,"Songti SC","STSong","SimSun",serif;font-size:21px;color:var(--ink);letter-spacing:.06em;line-height:1.4}
@@ -111,7 +113,6 @@
     .hero h1{font-size:56px}
     .grid{grid-template-columns:repeat(3,1fr);gap:18px}
     .featured .poster{max-height:78vh}
-    .featured .poster img{object-position:center 30%}
     .card:hover{transform:translateY(-2px)}
     .card:hover .poster img{transform:scale(1.02)}
     .card .poster img{transition:transform .3s ease}
@@ -176,13 +177,13 @@
 <script>
 /* ============ 海报数据：加一张海报只需在这里加一行，图片放 posters/ 目录 ============ */
 const POSTERS = [
-  {id:"dali",    title:"大理苍山洱海",     region:"云南", days:"5天4晚", from:"昆明出发",     price:"待定", img:null, grad:"linear-gradient(160deg,#5b2a86,#9d7bca)", desc:"示例行程介绍：等王总提供这条行程的文案后替换。"},
-  {id:"lijiang", title:"丽江古城慢游",     region:"云南", days:"4天3晚", from:"丽江出发",     price:"待定", img:null, grad:"linear-gradient(160deg,#4a2a6e,#8e6bb8)", desc:"示例行程介绍：等王总提供这条行程的文案后替换。"},
-  {id:"lasa",    title:"拉萨布宫圣湖",     region:"西藏", days:"7天6晚", from:"拉萨出发",     price:"待定", img:null, grad:"linear-gradient(160deg,#2e3a6e,#6b7fb8)", desc:"示例行程介绍：等王总提供这条行程的文案后替换。"},
-  {id:"sanya",   title:"三亚蜈支洲岛",     region:"海岛", days:"4天3晚", from:"三亚出发",     price:"待定", img:null, grad:"linear-gradient(160deg,#1f6e6e,#5cb8b0)", desc:"示例行程介绍：等王总提供这条行程的文案后替换。"},
-  {id:"wuzhen",  title:"乌镇水乡夜色",     region:"古镇", days:"2天1晚", from:"上海出发",     price:"待定", img:null, grad:"linear-gradient(160deg,#4a5568,#8a9ab0)", desc:"示例行程介绍：等王总提供这条行程的文案后替换。"},
-  {id:"meili",   title:"梅里雪山日照金山", region:"雪山", days:"5天4晚", from:"香格里拉出发", price:"待定", img:null, grad:"linear-gradient(160deg,#3a5a8a,#8fb0d8)", desc:"示例行程介绍：等王总提供这条行程的文案后替换。"},
-  {id:"dunhuang",title:"敦煌鸣沙山月牙泉", region:"沙漠", days:"4天3晚", from:"敦煌出发",     price:"待定", img:null, grad:"linear-gradient(160deg,#8a6a3a,#c8a86a)", desc:"示例行程介绍：等王总提供这条行程的文案后替换。"}
+  {id:"xinjiang", title:"雪域天山", region:"新疆", days:"8日", from:"版纳出发", price:"¥4980/人", dates:"11月24日 / 12月2日发班", img:"posters/xinjiang-tianshan.jpg", desc:"四飞8日高端品质游，伊宁进、乌鲁木齐出，疆内双点进出减少1000公里舟车劳顿。六星街、那拉提林海雪原、天鹅泉、赛里木湖、独山子大峡谷、库木塔格沙漠、吐鲁番、吐峪沟、高昌宴舞、坎儿井、南山滑雪场、天山天池。全程四钻品质住宿，赠送《高昌宴舞》沉浸式盛宴与雪圈戏雪，2+1舒适旅游大巴，一客一清防寒服。"},
+  {id:"nhatrang", title:"靠谱芽庄", region:"越南", days:"5晚6天", from:"云南出发", price:"¥2980/人", dates:"12月12日 / 12月26日", img:"posters/vietnam-nhatrang.jpg", desc:"游芽庄，必须靠谱。翡翠湾、龙山寺、占婆塔、五指岩、大教堂；越南三宝、海鲜BBQ、酸汤鸡、海鲜小火锅；全程芽庄网评五钻泳池酒店，0自费0车销，7大承诺做不到立即赔偿。不含签证杂费680元/人、过关小费、司导小费20元/人/天。"},
+  {id:"xinma", title:"臻享新马", region:"新马", days:"双飞5晚6天", from:"昆明出发", price:"¥3980/人", dates:"11月21日", img:"posters/singapore-malaysia.jpg", desc:"新加坡+马来西亚+波德申。东航优质白班机直飞吉隆坡，可配联运、赠送昆明住宿；吉隆坡升级2晚国际五星温德姆。鱼尾狮公园、花芭山、双峰塔、马六甲海峡、荷兰红屋、葡萄牙古城门；海南鸡饭、奶油虾、面包鸡、肉骨茶。0自费。不含杂费980元+导游小费120元+马来西亚酒店税17马币/晚/间。"},
+  {id:"bali", title:"巴厘岛·天屿五星梦", region:"巴厘岛", days:"6晚7天 / 6晚8天", from:"昆明出发", price:"¥4980/人", dates:"12月9日（6晚7天）/ 12月15日（6晚8天）", img:"posters/bali.jpg", desc:"东航优质白班机，联程直转、行李直挂。佩妮达西线出海1日游、蓝梦岛出海1日游；精灵坠崖、破碎沙滩、天神浴池、恶魔的眼泪、梦幻沙滩；3晚网评四钻酒店+1晚蓝梦岛酒店+2晚温德姆；悬崖公路、PANDAWA海滩下午茶、金巴兰海滩。纯玩0购物。不含杂费680元/人及落地签35美金/人。"},
+  {id:"sabah", title:"沙巴奇遇记", region:"沙巴", days:"4晚6天", from:"详询客服", price:"¥5980/人", dates:"10月15/17/20/22/24/27/29/30日、11月3/5/7/10/12/14/17/19/21/24/26/28日", img:"posters/sabah.jpg", desc:"2-8人精品小包团，纯玩0购物0自费。美人鱼岛出海、萤火虫、红树林长鼻猴、丹绒亚路日落；全程四钻酒店，赠送128元出游大礼包。可定制马穆迪+马努干双岛出海一日游（+800元/人）、升级佳蓝文莱度假村（+300元/人/晚）。不含杂费680+导游小费120+马段酒店税10马币/晚/间。"},
+  {id:"semporna", title:"恋上仙本那", region:"仙本那", days:"5晚6日", from:"详询客服", price:"¥6980/人", dates:"11月7/14/21/28日、12月5/12/19/26日", img:"posters/semporna.jpg", desc:"优质白班机直飞吉隆坡，可配联运（含托运行李）。2晚吉隆坡+3晚镇上精品酒店；出海跳岛：马步岛、卡帕莱、马达京、汀巴汀巴、邦邦岛；安排吉隆坡市区游。0自费0购物。不含杂费680+马段酒店税17马币/晚/间，上岛费自理。"},
+  {id:"kapalai", title:"卡帕莱奇遇记", region:"仙本那", days:"5晚6日", from:"详询客服", price:"¥8580/人", dates:"11月7/14/21/28日、12月5/12/19/26日", img:"posters/kapalai.jpg", desc:"优质白班机直飞吉隆坡，可配联运（含托运行李）。1晚卡帕莱水屋+2晚吉隆坡+2晚镇上精品酒店；卡帕莱自由浮潜（马布岛、马达京2选1）；安排吉隆坡市区游。0自费0购物。不含杂费680+马段酒店税17马币/晚/间，上岛费自理。"}
 ];
 const REGIONS = ["全部"].concat(POSTERS.map(p => p.region).filter((v, i, a) => a.indexOf(v) === i));
 let currentRegion = "全部";
@@ -217,13 +218,13 @@ function renderList(){
   if (!items.length){ $("#featured").innerHTML = ""; $("#grid").innerHTML = ""; return; }
   const f = items[0];
   $("#featured").innerHTML =
-    '<div class="reveal" data-id="' + f.id + '" style="cursor:pointer">' + posterHTML(f, "ratio34") +
+    '<div class="reveal" data-id="' + f.id + '" style="cursor:pointer">' + posterHTML(f, "ratio916") +
     '<div class="feat-title"><div class="region">' + f.region + ' · <span style="color:var(--gold)">主推</span></div>' +
-    '<div class="title">' + f.title + '</div><div class="meta">' + metaLine(f) + '</div></div></div>';
+    '<div class="title">' + f.title + '</div><div class="meta">' + metaLine(f) + '</div><div class="price">' + f.price + '</div></div></div>';
   $("#grid").innerHTML = items.slice(1).map(p =>
-    '<article class="card reveal" data-id="' + p.id + '">' + posterHTML(p, "ratio34") +
+    '<article class="card reveal" data-id="' + p.id + '">' + posterHTML(p, "ratio916") +
     '<div class="card-body"><div class="region">' + p.region + '</div>' +
-    '<div class="title">' + p.title + '</div><div class="meta">' + metaLine(p) + '</div></div></article>'
+    '<div class="title">' + p.title + '</div><div class="meta">' + metaLine(p) + '</div><div class="price">' + p.price + '</div></div></article>'
   ).join("");
   document.querySelectorAll("[data-id]").forEach(el => el.addEventListener("click", () => {
     location.hash = "#/p/" + el.dataset.id;
@@ -237,7 +238,7 @@ function renderDetail(id){
   if (!p){ location.hash = "#/"; return; }
   detailView.innerHTML =
     '<div class="detail"><button class="back" id="backBtn">← 全部海报</button>' +
-    '<div id="detailPoster">' + posterHTML(p, "ratio34") + '</div>' +
+    '<div id="detailPoster">' + posterHTML(p, "natural") + '</div>' +
     '<p class="tap-hint">点按海报可放大查看</p>' +
     '<div class="region">' + p.region + '</div><h2>' + p.title + '</h2>' +
     '<div class="meta">' + metaLine(p) + '</div>' +
@@ -245,6 +246,7 @@ function renderDetail(id){
     '<div class="info-row"><span class="k">行程天数</span><span class="v">' + p.days + '</span></div>' +
     '<div class="info-row"><span class="k">出发地</span><span class="v">' + p.from + '</span></div>' +
     '<div class="info-row"><span class="k">价格</span><span class="v">' + p.price + '</span></div>' +
+    '<div class="info-row"><span class="k">团期</span><span class="v">' + p.dates + '</span></div>' +
     '</div><p class="desc">' + p.desc + '</p>' +
     '<button class="consult" id="consultBtn">咨询行程</button></div>';
   $("#backBtn").addEventListener("click", () => { location.hash = "#/"; });
@@ -298,7 +300,7 @@ const lightbox = $("#lightbox");
 function openLightbox(p){
   $("#lbBody").innerHTML = p.img
     ? '<img src="' + p.img + '" alt="' + p.title + '海报原图">'
-    : '<div class="poster ratio34"><div class="poster-ph" style="background:linear-gradient(160deg,#f2f1ee,#e4e2dd)">'
+    : '<div class="poster ratio916"><div class="poster-ph" style="background:linear-gradient(160deg,#f2f1ee,#e4e2dd)">'
       + '<span class="ph-char">' + p.region + '</span><span class="ph-tag">示例海报</span></div></div>';
   lightbox.hidden = false; document.body.style.overflow = "hidden";
 }

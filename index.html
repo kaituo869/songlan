@@ -633,9 +633,9 @@ function loadPdfJs(){
     if (typeof window.pdfjsLib !== "undefined"){ res(true); return; }
     if (!document.createElement){ res(false); return; }
     const sc = document.createElement("script");
-    sc.src = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.2.67/build/pdf.min.js";
+    sc.src = "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js";
     sc.onload = () => {
-      try { window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@4.2.67/build/pdf.worker.min.js"; } catch(e){}
+      try { window.pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js"; } catch(e){}
       res(true);
     };
     sc.onerror = () => res(false);
